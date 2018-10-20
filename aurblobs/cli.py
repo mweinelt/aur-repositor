@@ -1,7 +1,7 @@
 import os.path
+from os import getuid
 import sys
 from pathlib import Path
-import os
 import click
 from tempfile import TemporaryDirectory
 
@@ -18,9 +18,9 @@ for directory in [CONFIG_DIR, CACHE_DIR, PACMAN_SYNC_CACHE_DIR]:
     except FileExistsError:
         pass
 
-if os.geteuid()==0:
-  print("Please don't run aurblobs as root!")
-  exit()
+if os.geteuid() == 0:
+  print("Please don't run aurblobs as root!", file=sys.stderr)
+  sys.exit(1)
 
 available_repositories = [os.path.basename(str(fn)).split('.')[:-1][0]
                           for fn in Path(CONFIG_DIR).glob('*.json')]
