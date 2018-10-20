@@ -19,7 +19,7 @@ for directory in [CONFIG_DIR, CACHE_DIR, PACMAN_SYNC_CACHE_DIR]:
         pass
 
 if os.geteuid() == 0:
-  print("Please don't run aurblobs as root!", file=sys.stderr)
+  click.echo(click.style("Please don't run aurblobs as root!", fg='red'), file=sys.stderr)
   sys.exit(1)
 
 available_repositories = [os.path.basename(str(fn)).split('.')[:-1][0]
