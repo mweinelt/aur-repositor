@@ -12,15 +12,15 @@ from .constants import (
 from .container import update_build_container
 from .repository import Repository
 
+if os.geteuid() == 0:
+    click.echo(click.style("Please don't run aurblobs as root!", fg='red'), file=sys.stderr)
+    sys.exit(1)
+
 for directory in [CONFIG_DIR, CACHE_DIR, PACMAN_SYNC_CACHE_DIR]:
     try:
         os.mkdir(directory)
     except FileExistsError:
         pass
-
-if os.geteuid() == 0:
-  click.echo(click.style("Please don't run aurblobs as root!", fg='red'), file=sys.stderr)
-  sys.exit(1)
 
 available_repositories = [os.path.basename(str(fn)).split('.')[:-1][0]
                           for fn in Path(CONFIG_DIR).glob('*.json')]
