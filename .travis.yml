@@ -12,9 +12,7 @@ stages:
 
 stage: build
 
-install:
-- python setup.py install
-
+install: python setup.py install
 script: aurblobs
 
 jobs:
