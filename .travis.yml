@@ -7,8 +7,10 @@ python:
   - "3.7"
 
 stages:
-  - check
-  - test
+  - style check
+  - build
+
+stage: build
 
 install:
 - python setup.py install
@@ -17,7 +19,7 @@ script: aurblobs
 
 jobs:
   include:
-    - stage: check
+    - stage: style check
       name: "Check for pep8 style"
       python: "3.7"
       install: pip install flake8
